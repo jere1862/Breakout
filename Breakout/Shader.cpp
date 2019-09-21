@@ -7,6 +7,11 @@ Shader & Shader::Use()
 	return *this;
 }
 
+Shader::Shader(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource)
+{
+	this->Compile(vertexSource, fragmentSource, geometrySource);
+}
+
 void Shader::Compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource)
 {
 	GLuint vertexShader = 0;
@@ -15,12 +20,12 @@ void Shader::Compile(const GLchar* vertexSource, const GLchar* fragmentSource, c
 
 	this->ID = glCreateProgram();
 
-	compileShader(GL_VERTEX_SHADER, vertexSource, "VERTEX", vertexShader);
-	compileShader(GL_FRAGMENT_SHADER, fragmentSource, "FRAGMENT", fragmentShader);
+	CompileShader(GL_VERTEX_SHADER, vertexSource, "VERTEX", vertexShader);
+	CompileShader(GL_FRAGMENT_SHADER, fragmentSource, "FRAGMENT", fragmentShader);
 
 	if (geometrySource)
 	{
-		compileShader(GL_GEOMETRY_SHADER, geometrySource, "GEOMETRY", geometryShader);
+		CompileShader(GL_GEOMETRY_SHADER, geometrySource, "GEOMETRY", geometryShader);
 		glAttachShader(this->ID, geometryShader);
 	}
 
@@ -66,7 +71,7 @@ void Shader::checkForCompileErrors(GLuint object, std::string type)
 	}
 }
 
-void Shader::compileShader(GLenum shaderType, const GLchar* vertexSource, std::string type, GLuint& shader)
+void Shader::CompileShader(GLenum shaderType, const GLchar* vertexSource, std::string type, GLuint& shader)
 {
 	shader = glCreateShader(shaderType);
 	glShaderSource(shader, 1, &vertexSource, NULL);

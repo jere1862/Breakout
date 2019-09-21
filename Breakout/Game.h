@@ -15,14 +15,11 @@ class Game
 public:
 	Game(GLuint height, GLuint width);
 	~Game();
-
-private:
+	GLboolean Keys[1024];
 	void Init();
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
 	void Render();
-
-private:
 	GameState State;
 };
 
