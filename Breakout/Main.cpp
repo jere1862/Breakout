@@ -5,6 +5,9 @@
 #include "Game.h"
 #include "ResourceManager.h"
 #include "TriangleRenderer.h"
+#include "SpriteRenderer.h"
+#include "glm/glm.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
@@ -47,10 +50,13 @@ int main()
 
 	Breakout.State = GAME_ACTIVE;
 
-	Shader shader = ResourceManager::LoadShader("TriangleVertexShader.glsl", "TriangleFragmentShader.glsl");
-	TriangleRenderer triangle(shader);
-	
+	//Shader shader = ResourceManager::LoadShader("sprite", "SpriteVertex.glsl", "SpriteFragment.glsl");
+	//Texture img = ResourceManager::LoadTexture("wood", "Images/Wood.png", GL_FALSE);
+
+	//TriangleRenderer triangle(shader);
+	//SpriteRenderer spriteRenderer(shader);
 	// ------------
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -64,10 +70,6 @@ int main()
 		// Render
 		glClearColor(0.3f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		// Draw the triangle
-		triangle.Draw();
-		// end test code
 
 		Breakout.Render();
 

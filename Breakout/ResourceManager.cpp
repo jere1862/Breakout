@@ -4,20 +4,21 @@
 #include <sstream>
 #include <fstream>
 
+
 std::map<std::string, Texture> ResourceManager::CachedTextures;
 std::map<std::string, Shader> ResourceManager::CachedShaders;
 
-Texture ResourceManager::GetTexture(const std::string& name)
+Texture& ResourceManager::GetTexture(const std::string& name)
 {
 	return CachedTextures[name];
 }
 
-Shader ResourceManager::GetShader(const std::string& name)
+Shader& ResourceManager::GetShader(const std::string& name)
 {
 	return CachedShaders[name];
 }
 
-Shader ResourceManager::LoadShader(const GLchar* vertexShaderFile, const GLchar* fragmentShaderFile, const GLchar* geometryShaderFile)
+Shader& ResourceManager::LoadShader(std::string name, const GLchar* vertexShaderFile, const GLchar* fragmentShaderFile, const GLchar* geometryShaderFile)
 {
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -50,10 +51,13 @@ Shader ResourceManager::LoadShader(const GLchar* vertexShaderFile, const GLchar*
 		std::cout << "ERROR::SHADER: Failed to read shader files." << std::endl;
 	}
 
-	return Shader(vertexCode.c_str(), fragmentCode.c_str(), geometryCode.length() == 0 ? nullptr : geometryCode.c_str());
+	Shader shader = Shader(vertexCode.c_str(), fragmentCode.c_str(), geometryCode.length() == 0 ? nullptr : geometryCode.c_str());
+	CachedShaders[name] = shader;
+
+	return shader;
 }
 
-Texture ResourceManager::LoadTexture(const GLchar* file, GLboolean alpha)
+Texture& ResourceManager::LoadTexture(std::string name, const GLchar* file, GLboolean alpha)
 {
 	GLuint textureFormat = GL_RGB;
 	GLuint soilFormat = SOIL_LOAD_RGB;
@@ -66,9 +70,10 @@ Texture ResourceManager::LoadTexture(const GLchar* file, GLboolean alpha)
 
 	int height;
 	int width;
+	int comp;
 	unsigned char* image = SOIL_load_image(file, &width, &height, 0, soilFormat);
-
 	Texture texture(width, height, textureFormat, image);
+	CachedTextures[name] = texture;
 
 	SOIL_free_image_data(image);
 

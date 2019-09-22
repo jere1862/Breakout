@@ -145,8 +145,13 @@
     <Text Include="VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SpriteFragment.glsl" />
+    <None Include="SpriteVertex.glsl" />
     <None Include="TriangleFragmentShader.glsl" />
     <None Include="TriangleVertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\Wood.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

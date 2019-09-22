@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <memory>
 
 enum GameState
 {
@@ -14,12 +15,16 @@ class Game
 {
 public:
 	Game(GLuint height, GLuint width);
-	~Game();
 	GLboolean Keys[1024];
 	void Init();
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
 	void Render();
 	GameState State;
+
+private:
+	GLuint height;
+	GLuint width;
+	std::unique_ptr<class SpriteRenderer> spriteRenderer;
 };
 

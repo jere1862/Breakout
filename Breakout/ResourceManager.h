@@ -10,11 +10,11 @@ class ResourceManager
 {
 public:
 	
-	static Texture GetTexture(const std::string& fileName);
-	static Shader GetShader(const std::string& fileName);
+	static Texture& GetTexture(const std::string& fileName);
+	static Shader& GetShader(const std::string& fileName);
 	
-	static Shader LoadShader(const GLchar* vertexShaderFile, const GLchar* fragmentShaderFile, const GLchar* geometryShaderFile = nullptr);
-	static Texture LoadTexture(const GLchar* file, GLboolean alpha);
+	static Shader& LoadShader(std::string name, const GLchar* vertexShaderFile, const GLchar* fragmentShaderFile, const GLchar* geometryShaderFile = nullptr);
+	static Texture& LoadTexture(std::string name, const GLchar* file, GLboolean alpha);
 
 	static void Clear();
 
